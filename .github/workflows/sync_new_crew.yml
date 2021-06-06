@@ -61,9 +61,16 @@ jobs:
         run: node parseallcrew.js
         working-directory: scripts
 
-      - name: Website - npm install
-        if: ${{ steps.parseallcrew.outputs.new_crew == 'true' }}
-        run: npm ci
+      - name: Check if there are changes
+        id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+        working-directory: website
+
+      - name: Website - npm install, node precalculate
+        if: ${{ steps.changes.outputs.changed == 1 }}
+        run: |
+          npm ci
+          node precalculate.js
         working-directory: website
   # Website precalculate, runs after scripts tasks if crew change detected
   # Commit all changes to respective repos and push
