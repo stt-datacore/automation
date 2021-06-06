@@ -1,5 +1,7 @@
 name: Sync new crew
 on:
+  schedule:
+    cron: '0 * * * *'
   workflow_dispatch:
     inputs:
       ONLY_SYNC_NEW_CREW:
