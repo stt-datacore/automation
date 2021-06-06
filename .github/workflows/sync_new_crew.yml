@@ -107,4 +107,4 @@ jobs:
           git add .
           git commit -m "Autosync" || true
           git push
-        working-directory: zhatvash
+        working-directory: scripts/zhatvash
