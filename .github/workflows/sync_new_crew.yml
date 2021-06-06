@@ -23,7 +23,7 @@ env:
   GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
   GUILD_ID: ${{ secrets.GUILD_ID }}
   GDOCS_TOKEN: ${{ secrets.GDOCS_TOKEN }}
-  EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW }}
+  EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW != 'false' }}
 jobs:
   # Checkout all repos
   Sync-New-Crew:
