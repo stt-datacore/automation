@@ -2,7 +2,7 @@ name: Sync new crew
 on: workflow_dispatch
 jobs:
   # Checkout all repos
-  checkout:
+  Sync-New-Crew:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout website
@@ -29,27 +29,16 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-  # Scripts specific tasks, run one after each other after checkout
-  install-scripts:
-    needs: checkout
-    runs-on: ubuntu-latest
-    steps:
-      - name: NPM install
+
+      - name: Scripts - npm install
         run: npm ci
         working-directory: scripts
-  run-parseallcrew-script:
-    needs: install-scripts
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run parseallcrew.js
+
+      - name: Scripts - parseallcrew.js
         run: node parseallcrew.js
         working-directory: scripts
-  # Website set up, runs in parallel with scripts tasks
-  install-website:
-    needs: checkout
-    runs-on: ubuntu-latest
-    steps:
-      - name: NPM install
+
+      - name: Website - npm install
         run: npm ci
         working-directory: website
   # Website precalculate, runs after scripts tasks if crew change detected
