@@ -85,7 +85,7 @@ jobs:
           git add .
           git commit -m "Autosync"
           git push
-        working_directory: website
+        working-directory: website
 
       - name: Scripts - Commit and push changes
         if: ${{ steps.changes.outputs.changes == 'true' }}
@@ -95,7 +95,7 @@ jobs:
           git add .
           git commit -m "Autosync"
           git push
-        working_directory: scripts
+        working-directory: scripts
 
       - name: Zhatvash - Commit and push changes
         if: ${{ steps.changes.outputs.changes == 'true' }}
@@ -105,4 +105,4 @@ jobs:
           git add .
           git commit -m "Autosync"
           git push
-        working_directory: zhatvash
+        working-directory: zhatvash
