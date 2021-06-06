@@ -8,18 +8,21 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: stt-datacore/website
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
       - name: Checkout scripts
         uses: actions/checkout@v2
         with:
           repository: stt-datacore/scripts
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts
 
       - name: Checkout zhatvash
         uses: actions/checkout@v2
         with:
           repository: ineffyble/zhatvash
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts/zhatvash
 
       - name: List files in the repository
