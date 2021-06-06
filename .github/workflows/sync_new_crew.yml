@@ -87,22 +87,22 @@ jobs:
           git push
         working-directory: website
 
-      - name: Scripts - Commit and push changes
+      - name: Scripts - Commit and push changes, if any
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Autosync"
+          git commit -m "Autosync" || true
           git push
         working-directory: scripts
 
-      - name: Zhatvash - Commit and push changes
+      - name: Zhatvash - Commit and push changes, if any
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Autosync"
+          git commit -m "Autosync" || true
           git push
         working-directory: zhatvash
