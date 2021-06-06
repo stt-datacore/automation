@@ -27,30 +27,26 @@ jobs:
   Sync-New-Crew:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout website
+      - name: Website - Checkout
         uses: actions/checkout@v2
         with:
           repository: stt-datacore/website
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
-      - name: Checkout scripts
+      - name: Scripts - Checkout
         uses: actions/checkout@v2
         with:
           repository: stt-datacore/scripts
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts
 
-      - name: Checkout zhatvash
+      - name: Zhatvash - Checkout
         uses: actions/checkout@v2
         with:
           repository: ineffyble/zhatvash
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts/zhatvash
-
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
 
       - name: Scripts - npm install
         run: npm ci
@@ -61,7 +57,7 @@ jobs:
         run: node parseallcrew.js
         working-directory: scripts
 
-      - name: Check if there are changes to website
+      - name: Website - Check for changes
         id: changes
         run: |
           if [[ `git status --porcelain` ]]; then
@@ -71,11 +67,42 @@ jobs:
           fi
         working-directory: website
 
-      - name: Website - npm install, node precalculate
+      - name: Website - npm install
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: npm ci
+        working-directory: website
+
+      - name: Website - node scripts/precalculate.js
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: node scripts/precalculate.js
+        working-directory: website
+
+      - name: Website - Commit and push changes
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
-          npm ci
-          node precalculate.js
-        working-directory: website
-  # Website precalculate, runs after scripts tasks if crew change detected
-  # Commit all changes to respective repos and push
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync"
+          git push
+        working_directory: website
+
+      - name: Scripts - Commit and push changes
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync"
+          git push
+        working_directory: scripts
+
+      - name: Zhatvash - Commit and push changes
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync"
+          git push
+        working_directory: zhatvash
