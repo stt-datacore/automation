@@ -1,4 +1,5 @@
 name: Sync new crew
+on: workflow_dispatch
 jobs:
   Sync-New-Crew:
     runs-on: ubuntu-latest
