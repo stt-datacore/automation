@@ -1,0 +1,26 @@
+name: Sync new crew
+jobs:
+  Sync-New-Crew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v2
+        with:
+          repository: stt-datacore/website
+          path: website
+
+      - name: Checkout scripts
+        uses: actions/checkout@v2
+        with:
+          repository: stt-datacore/scripts
+          path: scripts
+
+      - name: Checkout zhatvash
+        uses: actions/checkout@v2
+        with:
+          repository: ineffyble/zhatvash
+          path: scripts/zhatvash
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
