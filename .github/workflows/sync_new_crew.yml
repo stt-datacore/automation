@@ -61,13 +61,18 @@ jobs:
         run: node parseallcrew.js
         working-directory: scripts
 
-      - name: Check if there are changes
+      - name: Check if there are changes to website
         id: changes
-        uses: UnicornGlobal/has-changes-action@v1.0.11
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            echo "::set-output name=changes::true"
+          else
+            echo "::set-output name=changes::false"
+          fi
         working-directory: website
 
       - name: Website - npm install, node precalculate
-        if: ${{ steps.changes.outputs.changed == 1 }}
+        if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
           npm ci
           node precalculate.js
