@@ -1,5 +1,11 @@
 name: Sync new crew
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      ONLY_SYNC_NEW_CREW:
+        description: 'Only sync if there are new crew'
+        required: true
+        default: true
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
   PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
@@ -15,6 +21,7 @@ env:
   GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
   GUILD_ID: ${{ secrets.GUILD_ID }}
   GDOCS_TOKEN: ${{ secrets.GDOCS_TOKEN }}
+  EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW }}
 jobs:
   # Checkout all repos
   Sync-New-Crew:
@@ -50,10 +57,12 @@ jobs:
         working-directory: scripts
 
       - name: Scripts - parseallcrew.js
+        id: parseallcrew
         run: node parseallcrew.js
         working-directory: scripts
 
       - name: Website - npm install
+        if: ${{ steps.parseallcrew.outputs.new_crew == 'true' }}
         run: npm ci
         working-directory: website
   # Website precalculate, runs after scripts tasks if crew change detected
