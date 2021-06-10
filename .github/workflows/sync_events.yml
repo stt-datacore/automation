@@ -1,4 +1,4 @@
-name: Sync new crew
+name: Sync events
 on:
   schedule:
     - cron: '0 17 * * *'
