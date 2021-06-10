@@ -1,7 +1,7 @@
 name: Sync new crew
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '0 17 * * *'
   workflow_dispatch:
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
