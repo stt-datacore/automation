@@ -1,5 +1,8 @@
 name: Sync new crew
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
   PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
