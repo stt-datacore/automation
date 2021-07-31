@@ -1,0 +1,104 @@
+name: Sync gauntlets
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+env:
+  PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
+  PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
+  PLAYER_FR_USERNAME: ${{ secrets.PLAYER_FR_USERNAME }}
+  PLAYER_FR_PASSWORD: ${{ secrets.PLAYER_FR_PASSWORD }}
+  PLAYER_DE_USERNAME: ${{ secrets.PLAYER_DE_USERNAME }}
+  PLAYER_DE_PASSWORD: ${{ secrets.PLAYER_DE_PASSWORD }}
+  PLAYER_SP_USERNAME: ${{ secrets.PLAYER_SP_USERNAME }}
+  PLAYER_SP_PASSWORD: ${{ secrets.PLAYER_SP_PASSWORD }}
+  GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+  GOOGLE_API_KEY_2: ${{ secrets.GOOGLE_API_KEY_2 }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  GUILD_ID: ${{ secrets.GUILD_ID }}
+  GDOCS_TOKEN: ${{ secrets.GDOCS_TOKEN }}
+jobs:
+  # Checkout all repos
+  Sync-New-Crew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Website - Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: stt-datacore/website
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: website
+
+      - name: Scripts - Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: stt-datacore/scripts
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: scripts
+
+      - name: Zhatvash - Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ineffyble/zhatvash
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: scripts/zhatvash
+
+      - name: Scripts - npm install
+        run: npm ci
+        working-directory: scripts
+
+      - name: Scripts - gauntletparse.js
+        id: gauntletparse
+        run: node gauntletparse.js
+        working-directory: scripts
+
+      - name: Website - Check for changes
+        id: changes
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            echo "::set-output name=changes::true"
+          else
+            echo "::set-output name=changes::false"
+          fi
+        working-directory: website
+
+      - name: Website - npm install
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: npm ci
+        working-directory: website
+
+      - name: Website - node scripts/precalculate.js
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: node scripts/precalculate.js
+        working-directory: website
+
+      - name: Website - Commit and push changes
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync gauntlets"
+          git push
+        working-directory: website
+
+      - name: Scripts - Commit and push changes, if any
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync gauntlets" || true
+          git push
+        working-directory: scripts
+
+      - name: Zhatvash - Commit and push changes, if any
+        if: ${{ steps.changes.outputs.changes == 'true' }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Autosync gauntlets" || true
+          git push
+        working-directory: scripts/zhatvash
