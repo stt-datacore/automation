@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install system packages
-        run: sudo apt install libvips-dev
+        run: sudo apt install libvips-dev libglib2.0-dev
 
       - name: Website - Checkout
         uses: actions/checkout@v2
