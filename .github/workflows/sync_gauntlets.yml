@@ -65,7 +65,7 @@ jobs:
 
       - name: Website - npm install
         if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: npm ci
+        run: npm ci --ignore-scripts || true
         working-directory: website
 
       - name: Website - node scripts/precalculate.js
