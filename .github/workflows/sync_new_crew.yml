@@ -26,6 +26,7 @@ env:
   GDOCS_TOKEN: ${{ secrets.GDOCS_TOKEN }}
   REGENERATE_KEYSTONES: "true"
   EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW != 'false' }}
+  NODE_TLS_REJECT_UNAUTHORIZED: "0"
 jobs:
   # Checkout all repos
   Sync-New-Crew:
