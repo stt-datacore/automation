@@ -32,6 +32,9 @@ jobs:
   Sync-New-Crew:
     runs-on: ubuntu-latest
     steps:
+      - name: Update system package list
+        run: sudo apt update
+        
       - name: Install system packages
         run: sudo apt install libvips-dev libglib2.0-dev
 
