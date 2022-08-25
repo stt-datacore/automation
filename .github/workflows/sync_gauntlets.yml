@@ -63,9 +63,9 @@ jobs:
           fi
         working-directory: website
 
-      - name: Website - npm install
+      - name: Website - yarn install
         if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: npm ci --ignore-scripts || true
+        run: yarn install
         working-directory: website
 
       - name: Website - node scripts/precalculate.js
