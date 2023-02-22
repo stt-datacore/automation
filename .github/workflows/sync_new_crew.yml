@@ -38,6 +38,10 @@ jobs:
       - name: Install system packages
         run: sudo apt install libvips-dev libglib2.0-dev
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Website - Checkout
         uses: actions/checkout@v2
         with:
