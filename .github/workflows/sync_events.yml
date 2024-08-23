@@ -44,7 +44,7 @@ jobs:
       - name: Zhatvash - Checkout
         uses: actions/checkout@v2
         with:
-          repository: ineffyble/zhatvash
+          repository: stt-datacore-ops/zhatvash
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts/zhatvash
 
