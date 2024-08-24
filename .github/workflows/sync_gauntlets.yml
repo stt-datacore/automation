@@ -18,6 +18,7 @@ env:
   GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
   GUILD_ID: ${{ secrets.GUILD_ID }}
   GDOCS_TOKEN: ${{ secrets.GDOCS_TOKEN }}
+  BBSECRET: ${{ secrets.BBSECRET }}
 jobs:
   # Checkout all repos
   Sync-New-Crew:
