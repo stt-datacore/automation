@@ -40,26 +40,26 @@ jobs:
       - name: Install system packages
         run: sudo apt install libvips-dev libglib2.0-dev
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Website - Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: stt-datacore/website
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
       - name: Scripts - Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: stt-datacore/scripts
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts
 
       - name: Zhatvash - Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: stt-datacore/zhatvash
           token: ${{ secrets.GH_ACCESS_TOKEN }}
