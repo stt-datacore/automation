@@ -97,6 +97,7 @@ jobs:
 
       - name: List node_modules/@types
         run: ls -l node_modules/@types
+        working-directory: website
 
       - name: Website - precalculate
         # if: ${{ steps.changes.outputs.changes == 'true' }}
