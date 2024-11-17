@@ -96,7 +96,7 @@ jobs:
       - name: Website - precalculate
         # if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
-          yarn tsc -p ./tsconfig.node.json ./scripts/precalculate.ts --outDir ./build
+          yarn tsc -p ./tsconfig.node.json
           node build/scripts/precalculate.js
         working-directory: website
 
