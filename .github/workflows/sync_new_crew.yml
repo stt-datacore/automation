@@ -93,9 +93,11 @@ jobs:
           yarn install
         working-directory: website
 
-      - name: Website - npm run precalculate
+      - name: Website - precalculate
         # if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: npm run precalculate
+        run: |
+          yarn tsc -p ./tsconfig.node.json ./scripts/precalculate.ts --outDir ./build
+          node build/scripts/precalculate.js
         working-directory: website
 
       - name: Website - Commit and push changes
