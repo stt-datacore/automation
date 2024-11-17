@@ -9,7 +9,7 @@ on:
       ONLY_SYNC_NEW_CREW:
         description: 'Only sync if there are new crew'
         required: true
-        default: true
+        default: 'true'
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
   PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Update system package list
         run: sudo apt update
-        
+
       - name: Install system packages
         run: sudo apt install libvips-dev libglib2.0-dev
 
@@ -48,6 +48,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: stt-datacore/website
+          ref: beta
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
@@ -89,9 +90,9 @@ jobs:
         run: yarn install
         working-directory: website
 
-      - name: Website - node scripts/precalculate.js
+      - name: Website - npm run precalculate
         if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: node scripts/precalculate.js
+        run: npm run precalculate
         working-directory: website
 
       - name: Website - Commit and push changes
