@@ -93,6 +93,7 @@ jobs:
           yarn set version 3.6.3
           yarn cache clean
           yarn install
+          yarn install --dev
         working-directory: website
 
       - name: List node_modules/@types
