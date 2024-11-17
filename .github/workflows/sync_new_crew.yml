@@ -91,9 +91,12 @@ jobs:
         run: |
           corepack enable
           yarn set version 3.6.3
+          yarn cache clean
           yarn install
-          yarn add --dev @types/node
         working-directory: website
+
+      - name: List node_modules/@types
+        run: ls -l node_modules/@types
 
       - name: Website - precalculate
         # if: ${{ steps.changes.outputs.changes == 'true' }}
