@@ -87,7 +87,10 @@ jobs:
 
       - name: Website - yarn install
         # if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: yarn install
+        run: |
+          corepack enable
+          yarn set version 3.6.3
+          yarn install
         working-directory: website
 
       - name: Website - npm run precalculate
