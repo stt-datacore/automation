@@ -52,51 +52,51 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
-      - name: Scripts - Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: stt-datacore/scripts
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          path: scripts
+      # - name: Scripts - Checkout
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: stt-datacore/scripts
+      #     token: ${{ secrets.GH_ACCESS_TOKEN }}
+      #     path: scripts
 
-      - name: Zhatvash - Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: stt-datacore/zhatvash
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          path: scripts/zhatvash
+      # - name: Zhatvash - Checkout
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: stt-datacore/zhatvash
+      #     token: ${{ secrets.GH_ACCESS_TOKEN }}
+      #     path: scripts/zhatvash
 
-      - name: Scripts - npm install
-        run: npm ci
-        working-directory: scripts
+      # - name: Scripts - npm install
+      #   run: npm ci
+      #   working-directory: scripts
 
-      - name: Scripts - parseallcrew.js
-        id: parseallcrew
-        run: node parseallcrew.js
-        working-directory: scripts
+      # - name: Scripts - parseallcrew.js
+      #   id: parseallcrew
+      #   run: node parseallcrew.js
+      #   working-directory: scripts
 
-      - name: Website - Check for changes
-        id: changes
-        run: |
-          if [[ `git status --porcelain` ]]; then
-            echo "::set-output name=changes::true"
-          else
-            echo "::set-output name=changes::false"
-          fi
-        working-directory: website
+      # - name: Website - Check for changes
+      #   id: changes
+      #   run: |
+      #     if [[ `git status --porcelain` ]]; then
+      #       echo "::set-output name=changes::true"
+      #     else
+      #       echo "::set-output name=changes::false"
+      #     fi
+      #   working-directory: website
 
       - name: Website - yarn install
-        if: ${{ steps.changes.outputs.changes == 'true' }}
+        # if: ${{ steps.changes.outputs.changes == 'true' }}
         run: yarn install
         working-directory: website
 
       - name: Website - npm run precalculate
-        if: ${{ steps.changes.outputs.changes == 'true' }}
+        # if: ${{ steps.changes.outputs.changes == 'true' }}
         run: npm run precalculate
         working-directory: website
 
       - name: Website - Commit and push changes
-        if: ${{ steps.changes.outputs.changes == 'true' }}
+        # if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -106,24 +106,24 @@ jobs:
           git push
         working-directory: website
 
-      - name: Scripts - Commit and push changes, if any
-        if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "Autosync" || true
-          git pull --rebase || true
-          git push
-        working-directory: scripts
+      # - name: Scripts - Commit and push changes, if any
+      #   if: ${{ steps.changes.outputs.changes == 'true' }}
+      #   run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git add .
+      #     git commit -m "Autosync" || true
+      #     git pull --rebase || true
+      #     git push
+      #   working-directory: scripts
 
-      - name: Zhatvash - Commit and push changes, if any
-        if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "Autosync" || true
-          git pull --rebase || true
-          git push
-        working-directory: scripts/zhatvash
+      # - name: Zhatvash - Commit and push changes, if any
+      #   if: ${{ steps.changes.outputs.changes == 'true' }}
+      #   run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git add .
+      #     git commit -m "Autosync" || true
+      #     git pull --rebase || true
+      #     git push
+      #   working-directory: scripts/zhatvash
