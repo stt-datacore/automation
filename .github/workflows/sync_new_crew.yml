@@ -53,12 +53,12 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
-      - name: Scripts - Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: stt-datacore/scripts
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
-          path: scripts
+      # - name: Scripts - Checkout
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: stt-datacore/scripts
+      #     token: ${{ secrets.GH_ACCESS_TOKEN }}
+      #     path: scripts
 
       # - name: Zhatvash - Checkout
       #   uses: actions/checkout@v4
@@ -67,9 +67,9 @@ jobs:
       #     token: ${{ secrets.GH_ACCESS_TOKEN }}
       #     path: scripts/zhatvash
 
-      - name: Scripts - npm install
-        run: npm ci
-        working-directory: scripts
+      # - name: Scripts - npm install
+      #   run: npm ci
+      #   working-directory: scripts
 
       # - name: Scripts - parseallcrew.js
       #   id: parseallcrew
@@ -88,22 +88,12 @@ jobs:
 
       - name: Website - yarn install
         # if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: |
-          yarn cache clean
-          yarn install
-        working-directory: website
-
-      - name: List node_modules/@types
-        id: nodels
-        run: ls node_modules/@types
+        run: yarn install
         working-directory: website
 
       - name: Website - precalculate
-        id: precalculate
         # if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: |
-          yarn tsc -p ./tsconfig.node.json
-          node build/scripts/precalculate.js
+        run: npm run precalculate
         working-directory: website
 
       - name: Website - Commit and push changes
