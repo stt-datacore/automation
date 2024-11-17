@@ -92,12 +92,11 @@ jobs:
           corepack enable
           yarn set version 3.6.3
           yarn cache clean
-          yarn install
-          yarn install --dev
+          NODE_ENV=development yarn install
         working-directory: website
 
       - name: List node_modules/@types
-        run: ls -l node_modules/@types
+        run: ls ./node_modules/@types
         working-directory: website
 
       - name: Website - precalculate
