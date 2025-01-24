@@ -91,7 +91,6 @@ jobs:
         working-directory: website
 
       - name: Scripts - Commit and push changes, if any
-        if: ${{ steps.changes.outputs.changes == 'true' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
