@@ -5,11 +5,7 @@ on:
     - cron: '*/5 15 * * 2'
     - cron: '45 7 * * *'
   workflow_dispatch:
-    inputs:
-      ONLY_SYNC_NEW_CREW:
-        description: 'Only sync if there are new crew'
-        required: true
-        default: 'true'
+
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
   PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
