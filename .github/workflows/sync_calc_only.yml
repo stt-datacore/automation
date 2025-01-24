@@ -85,7 +85,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Autosync"
+          git commit -m "Autosync Datascore"
           git pull --rebase || true
           git push
         working-directory: website
@@ -95,7 +95,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Autosync" || true
+          git commit -m "Autosync Datascore" || true
           git pull --rebase || true
           git push
         working-directory: scripts
