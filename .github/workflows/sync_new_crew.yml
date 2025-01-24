@@ -39,7 +39,7 @@ jobs:
         run: sudo apt update
 
       - name: Install system packages
-        run: sudo apt install libvips-dev libglib2.0-dev
+        run: sudo apt install libvips-dev libglib2.0-dev zip
 
       - uses: actions/setup-node@v4
         with:
@@ -49,7 +49,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: stt-datacore/website
-          ref: beta
+          # Remove this for prod!!!
+          ref: ship-scoring
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
@@ -94,6 +95,11 @@ jobs:
       - name: Website - precalculate
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: npm run precalculate
+        working-directory: website
+
+      - name: Scripts - datascore
+        id: datascore
+        run: calc.sh
         working-directory: website
 
       - name: Website - Commit and push changes
