@@ -1,9 +1,9 @@
 name: Sync calc only
 on:
-  schedule:
-    - cron: '0 * * * *'
-    - cron: '*/5 15 * * 2'
-    - cron: '45 7 * * *'
+  # schedule:
+  #   - cron: '0 * * * *'
+  #   - cron: '*/5 15 * * 2'
+  #   - cron: '45 7 * * *'
   workflow_dispatch:
 
 env:
