@@ -39,7 +39,7 @@ jobs:
         run: sudo apt update
 
       - name: Install system packages
-        run: sudo apt install libvips-dev libglib2.0-dev zip
+        run: sudo apt install libvips-dev libglib2.0-dev zip bash
 
       - uses: actions/setup-node@v4
         with:
@@ -97,9 +97,9 @@ jobs:
         run: npm run precalculate
         working-directory: website
 
-      - name: Scripts - datascore
+      - name: Website - datascore
         id: datascore
-        run: calc.sh
+        run: bash calc.sh
         working-directory: website
 
       - name: Website - Commit and push changes
