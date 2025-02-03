@@ -104,8 +104,8 @@ jobs:
 
       - name: Datascore - precalculate
         if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: npm run precalculate
-        working-directory: datascore
+        run: node scripts/precalculate
+        working-directory: website
 
       - name: Datascore - calculate
         id: datascore
