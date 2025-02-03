@@ -50,7 +50,7 @@ jobs:
         with:
           repository: stt-datacore/website
           # Remove this for prod!!!
-          ref: ship-scoring
+          ref: beta
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
@@ -60,6 +60,13 @@ jobs:
           repository: stt-datacore/scripts
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts
+
+      - name: DataScore - Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: stt-datacore/datascore
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: datascore
 
       - name: Zhatvash - Checkout
         uses: actions/checkout@v4
@@ -92,15 +99,19 @@ jobs:
         run: yarn install
         working-directory: website
 
+      - name: Datascore - yarn install
+        run: yarn install
+        working-directory: datascore
+
       - name: Website - precalculate
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: npm run precalculate
         working-directory: website
 
-      - name: Website - datascore
+      - name: Datascore - calculate
         id: datascore
         run: bash calc.sh
-        working-directory: website
+        working-directory: datascore
 
       - name: Website - Commit and push changes
         if: ${{ steps.changes.outputs.changes == 'true' }}
