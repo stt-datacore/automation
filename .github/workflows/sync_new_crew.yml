@@ -94,6 +94,10 @@ jobs:
           fi
         working-directory: website
 
+      - name: Website - yarn install
+        run: yarn install
+        working-directory: website
+
       - name: Datascore - yarn install
         run: yarn install
         working-directory: datascore
