@@ -83,7 +83,7 @@ jobs:
         working-directory: datascore
 
       - name: Website - precalculate
-        run: node scripts/precalculate
+        run: npm run precalculate
         working-directory: website
 
       - name: Datascore - calculate
