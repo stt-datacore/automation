@@ -102,14 +102,14 @@ jobs:
           yarn install
         working-directory: website
 
-      - name: Datascore - yarn install
-        run: yarn install
-        working-directory: datascore
-
       - name: Website - precalculate
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: npm run precalculate
         working-directory: website
+
+      - name: Datascore - yarn install
+        run: yarn install
+        working-directory: datascore
 
       - name: Datascore - calculate
         id: datascore
