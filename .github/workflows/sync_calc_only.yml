@@ -26,7 +26,7 @@ env:
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
   BBSECRET: ${{ secrets.BBSECRET }}
   NODE_ENV: development
-  # YARN_ENABLE_IMMUTABLE_INSTALLS: false
+  YARN_ENABLE_IMMUTABLE_INSTALLS: false
 jobs:
   # Checkout all repos
   Sync-Calc-Only:
@@ -76,7 +76,10 @@ jobs:
         working-directory: website
 
       - name: Website - yarn install
-        run: yarn install
+        run: |
+          corepack enable
+          yarn set version berry
+          yarn install
         working-directory: website
 
       - name: Datascore - yarn install
