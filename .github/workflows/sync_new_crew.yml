@@ -95,7 +95,9 @@ jobs:
         working-directory: website
 
       - name: Website - yarn install
-        run: yarn install
+        run: |
+          yarn set version berry
+          yarn install
         working-directory: website
 
       - name: Datascore - yarn install
