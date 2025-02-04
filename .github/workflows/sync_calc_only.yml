@@ -83,16 +83,25 @@ jobs:
         working-directory: website
 
       - name: Website - precalculate
-        run: npm run precalculate
+        run: |
+          corepack enable
+          yarn set version berry
+          npm run precalculate
         working-directory: website
 
       - name: Datascore - yarn install
-        run: yarn install
+        run: |
+          corepack enable
+          yarn set version berry
+          yarn install
         working-directory: datascore
 
       - name: Datascore - calculate
         id: datascore
-        run: bash calc.sh
+        run: |
+          corepack enable
+          yarn set version berry
+          bash calc.sh
         working-directory: datascore
 
       - name: Website - Commit and push changes
