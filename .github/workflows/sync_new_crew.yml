@@ -45,7 +45,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
 
       - name: Website - Checkout
         uses: actions/checkout@v4
