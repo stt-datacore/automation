@@ -89,7 +89,9 @@ jobs:
 
       - name: Datascore - calculate
         id: datascore
-        run: bash calc.sh
+        run: |
+          bash calc.sh
+          cat ./battle_run_report.txt
         working-directory: datascore
 
       - name: Website - Commit and push changes
