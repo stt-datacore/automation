@@ -40,7 +40,7 @@ jobs:
         run: sudo apt update
 
       - name: Install system packages
-        run: sudo apt install libvips-dev libglib2.0-dev zip bash
+        run: sudo apt install zip bash
 
       - uses: actions/setup-node@v4
         with:
