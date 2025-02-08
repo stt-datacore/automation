@@ -79,9 +79,9 @@ jobs:
         run: yarn install
         working-directory: website
 
-      - name: Website - precalculate
-        run: npm run precalculate
-        working-directory: website
+      # - name: Website - precalculate
+      #   run: npm run precalculate
+      #   working-directory: website
 
       - name: Datascore - yarn install
         run: yarn install
