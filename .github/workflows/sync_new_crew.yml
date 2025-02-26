@@ -28,9 +28,8 @@ env:
   REGENERATE_KEYSTONES: "true"
   EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW != 'false' && github.event.schedule != '45 7 * * *' }}
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
-  BBSECRET: ${{ secrets.BBSECRET }}
-  NODE_ENV: development
-  # YARN_ENABLE_IMMUTABLE_INSTALLS: false
+  LOAD_CREW_URL: ${{ secrets.LOAD_CREW_URL }}
+  DISMISS_CREW_URL: ${{ secrets.DISMISS_CREW_URL }}
 jobs:
   # Checkout all repos
   Sync-New-Crew:
