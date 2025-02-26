@@ -9,7 +9,7 @@ on:
       ONLY_SYNC_NEW_CREW:
         description: 'Only sync if there are new crew'
         required: true
-        default: true
+        default: 'true'
 env:
   PLAYER_EN_USERNAME: ${{ secrets.PLAYER_EN_USERNAME }}
   PLAYER_EN_PASSWORD: ${{ secrets.PLAYER_EN_PASSWORD }}
@@ -28,7 +28,8 @@ env:
   REGENERATE_KEYSTONES: "true"
   EXIT_IF_NO_NEW_CREW: ${{ github.event.inputs.ONLY_SYNC_NEW_CREW != 'false' && github.event.schedule != '45 7 * * *' }}
   NODE_TLS_REJECT_UNAUTHORIZED: "0"
-  BBSECRET: ${{ secrets.BBSECRET }}
+  LOAD_CREW_URL: ${{ secrets.LOAD_CREW_URL }}
+  DISMISS_CREW_URL: ${{ secrets.DISMISS_CREW_URL }}
 jobs:
   # Checkout all repos
   Sync-New-Crew:
@@ -36,7 +37,7 @@ jobs:
     steps:
       - name: Update system package list
         run: sudo apt update
-        
+
       - name: Install system packages
         run: sudo apt install libvips-dev libglib2.0-dev
 
