@@ -50,7 +50,7 @@ jobs:
         with:
           repository: stt-datacore/website
           # Remove this for prod!!!
-          ref: beta
+          # ref: beta
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
@@ -98,11 +98,6 @@ jobs:
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: yarn install
         working-directory: website
-
-      # - name: Website - precalculate
-      #   if: ${{ steps.changes.outputs.changes == 'true' }}
-      #   run: npm run precalculate
-      #   working-directory: website
 
       - name: Datascore - yarn install
         if: ${{ steps.changes.outputs.changes == 'true' }}

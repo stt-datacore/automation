@@ -47,7 +47,7 @@ jobs:
         with:
           repository: stt-datacore/website
           # Remove this for prod!!!
-          ref: beta
+          # ref: beta
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: website
 
