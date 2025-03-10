@@ -49,6 +49,13 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           path: scripts/zhatvash
 
+      - name: DataScore - Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: stt-datacore/datascore
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          path: datascore
+
       - name: Scripts - npm install
         run: npm ci
         working-directory: scripts
@@ -68,15 +75,19 @@ jobs:
           fi
         working-directory: website
 
-      - name: Website - npm install
+      - name: Website - yarn install
         if: ${{ steps.changes.outputs.changes == 'true' }}
         run: yarn install
         working-directory: website
 
-      - name: Website - node scripts/precalculate.js
-        if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: node scripts/precalculate.js
-        working-directory: website
+      - name: Datascore - yarn install
+        run: yarn install
+        working-directory: datascore
+
+      - name: Datascore - calculate
+        id: datascore
+        run: bash calc.sh
+        working-directory: datascore
 
       - name: Website - Commit and push changes
         if: ${{ steps.changes.outputs.changes == 'true' }}
