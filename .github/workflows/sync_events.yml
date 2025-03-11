@@ -81,10 +81,12 @@ jobs:
         working-directory: website
 
       - name: Datascore - yarn install
+        if: ${{ steps.changes.outputs.changes == 'true' }}
         run: yarn install
         working-directory: datascore
 
       - name: Datascore - calculate
+        if: ${{ steps.changes.outputs.changes == 'true' }}
         id: datascore
         run: bash calc.sh
         working-directory: datascore
