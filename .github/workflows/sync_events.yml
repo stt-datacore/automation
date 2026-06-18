@@ -75,10 +75,10 @@ jobs:
           fi
         working-directory: website
 
-      - name: Website - yarn install
-        if: ${{ steps.changes.outputs.changes == 'true' }}
-        run: yarn install
-        working-directory: website
+      # - name: Website - yarn install
+      #   if: ${{ steps.changes.outputs.changes == 'true' }}
+      #   run: yarn install
+      #   working-directory: website
 
       # - name: Datascore - yarn install
       #   if: ${{ steps.changes.outputs.changes == 'true' }}
